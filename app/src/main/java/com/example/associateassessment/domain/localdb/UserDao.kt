@@ -1,20 +1,24 @@
 package com.example.associateassessment.domain.localdb
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.associateassessment.domain.Item
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao {
 
-    @Insert
-    fun insertFavoriteUser(item: Item)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertUsers(item: List<Item>)
 
-    @get:Query("SELECT * FROM user")
-    val allUsers : LiveData<List<Item>>
+    @Query("SELECT * FROM user")
+    fun getAllUsers() : Flow<List<Item>>
+
+    @Query("DELETE FROM user")
+    suspend fun deleteAllUsers()
+
+    @Query("SELECT * FROM user WHERE isFavorite = 1 ")
+    fun getFavoriteUsers(): Flow<List<Item>>
 
     @Delete
     fun delete(item: Item)

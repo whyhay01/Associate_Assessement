@@ -30,9 +30,9 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mViewModel.getFavoriteUsers().observe(requireActivity()) {
-            binding.rvFavorite.adapter = FavoriteAdapter(requireContext(), it)
-        }
+//        mViewModel.getFavoriteUsers().observe(requireActivity()) {
+//            binding.rvFavorite.adapter = FavoriteAdapter(requireContext(), it)
+//        }
 
     }
 

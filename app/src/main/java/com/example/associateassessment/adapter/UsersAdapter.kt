@@ -14,9 +14,10 @@ import com.example.associateassessment.R
 import com.example.associateassessment.domain.Item
 
 class UsersAdapter(private val context: Context,
-                   private val itemList:List<Item> = emptyList(), private val block: (Int)->Unit, private val remove:(Int)->Unit):
+                   private val itemList:List<Item> = emptyList()):
     RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
+//    , private val block: (Int)->Unit, private val remove:(Int)->Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.display_user,parent,false)
@@ -36,12 +37,12 @@ class UsersAdapter(private val context: Context,
             if (item.isFavorite){
                 item.isFavorite = false
                 holder.favorite.setImageResource(R.drawable.ic_baseline_favorite_24)
-                remove.invoke(position)
+//                remove.invoke(position)
                 Toast.makeText(context,"${item.userName} has been removed from your favorite",Toast.LENGTH_SHORT).show()
             }else {
                 item.isFavorite = true
                 holder.favorite.setImageResource(R.drawable.ic_favorite)
-                block.invoke(position)
+//                block.invoke(position)
                 Toast.makeText(context,"${item.userName} has been added to your favorite",Toast.LENGTH_SHORT).show()
             }
 
