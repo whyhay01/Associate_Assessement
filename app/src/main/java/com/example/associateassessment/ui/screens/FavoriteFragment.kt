@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import com.example.associateassessment.R
 import com.example.associateassessment.adapter.FavoriteAdapter
 import com.example.associateassessment.databinding.FragmentFavoriteBinding
+import com.example.associateassessment.domain.Item
 import com.example.associateassessment.ui.MainFragmentDirections
 import com.example.associateassessment.ui.viewmodel.UserViewModel
 
@@ -46,6 +47,13 @@ class FavoriteFragment : Fragment() {
                     findNavController().navigate(
                         MainFragmentDirections
                             .actionMainFragmentToDetailsFragment(favoriteList[itemClickedPosition]))
+                }
+
+                tvClearFavorite.setOnClickListener {
+                    for (item: Item in favoriteList){
+                        item.isFavorite = false
+                        mViewModel.addFavorites(item)
+                    }
                 }
             }
 
