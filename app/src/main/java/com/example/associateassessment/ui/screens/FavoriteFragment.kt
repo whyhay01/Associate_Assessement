@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.example.associateassessment.R
 import com.example.associateassessment.adapter.FavoriteAdapter
 import com.example.associateassessment.databinding.FragmentFavoriteBinding
+import com.example.associateassessment.ui.MainFragmentDirections
 import com.example.associateassessment.ui.viewmodel.UserViewModel
 
 
@@ -39,8 +41,12 @@ class FavoriteFragment : Fragment() {
         binding.apply {
             rvFavorite.apply {
             mViewModel.getFavorites().observe(requireActivity()) { favoriteList ->
-//                Log.d("FavoriteFragment", "${favoriteList[2]}")
                 adapter = FavoriteAdapter(requireContext(), favoriteList)
+                { itemClickedPosition ->
+                    findNavController().navigate(
+                        MainFragmentDirections
+                            .actionMainFragmentToDetailsFragment(favoriteList[itemClickedPosition]))
+                }
             }
 
             }

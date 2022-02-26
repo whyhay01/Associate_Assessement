@@ -32,12 +32,16 @@ class Repository(context: Context) {
             service.getUsers()
         },
         saveFetchResult = { users ->
-            userDb?.withTransaction {
+                userDb?.withTransaction {
 //                userDao.deleteAllUsers()
-                userDao.insertUsers(users.items)
-            }
+                    userDao.insertUsers(users.items)
+                }
+            },
+        shouldFetch = {userInDB ->
+            userInDB.isEmpty()
 
         }
+
     )
 
     suspend fun addFavorites(item: Item){

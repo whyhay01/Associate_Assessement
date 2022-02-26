@@ -15,7 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 class UsersAdapter(private val context: Context,
                    private val itemList:List<Item> = emptyList(),
                     private val block: (Int)->Unit,
-                   private val remove:(Int)->Unit):
+                   private val detail:(Int)->Unit):
     RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
 //private val remove:(Int)->Unit)
@@ -34,14 +34,6 @@ class UsersAdapter(private val context: Context,
         }
 
         holder.userName.text = item.userName
-//        holder.favorite.setOnCheckedChangeListener { favoriteButton, isChecked ->
-//
-//            if (isChecked) {
-//                item.isFavorite = true
-//                holder.showMessage("${item.userName} has been removed from your favorite")
-//                block.invoke(position)
-//            }
-//        }
 
         if (item.isFavorite) {
             holder.favorite.setImageResource(R.drawable.ic_favorite)
@@ -56,7 +48,7 @@ class UsersAdapter(private val context: Context,
             if(item.isFavorite) {
                 item.isFavorite = false
                 holder.favorite.setImageResource(R.drawable.ic_baseline_favorite_24)
-                remove.invoke(position)
+                block.invoke(position)
                 holder.showMessage("${item.userName} has been removed from your favorite")
             } else {
                 item.isFavorite = true
@@ -79,6 +71,12 @@ class UsersAdapter(private val context: Context,
 
         fun showMessage(message:String){
             Snackbar.make(itemView,message,Snackbar.LENGTH_SHORT).show()
+        }
+
+        init{
+            itemView.setOnClickListener {
+                detail.invoke(adapterPosition)
+            }
         }
 
 

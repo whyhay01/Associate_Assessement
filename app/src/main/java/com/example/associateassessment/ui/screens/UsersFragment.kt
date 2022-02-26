@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.example.associateassessment.R
 import com.example.associateassessment.adapter.UsersAdapter
 import com.example.associateassessment.databinding.FragmentUsersBinding
+import com.example.associateassessment.ui.MainFragmentDirections
 import com.example.associateassessment.ui.viewmodel.UserViewModel
 import com.example.associateassessment.utils.Resource.*
 
@@ -47,8 +49,9 @@ class UsersFragment : Fragment() {
                     { addToFavorite ->
                         mViewModel.addFavorites(result.data[addToFavorite])
                     },
-                        {removeFromFavorite ->
-                        mViewModel.addFavorites(it[removeFromFavorite])
+                        {itemClickedPosition ->
+                        findNavController().navigate(MainFragmentDirections
+                            .actionMainFragmentToDetailsFragment(it[itemClickedPosition]))
 
                     })
 
@@ -64,20 +67,6 @@ class UsersFragment : Fragment() {
             }
         }
 
-//        mViewModel.users.observe(requireActivity()) {
-//            binding.rvUsers.adapter =
-//                it.data?.let { result ->
-//                    UsersAdapter(requireContext(), result)
-////                    ,{ favoritePosition ->
-////
-////                        mViewModel.insertFavoriteUser(it[favoritePosition])
-////
-////                    },{removeFavoritePosition ->
-////                        mViewModel.removeFromFavorite(it[removeFavoritePosition])
-////                    })
-//                    binding.progressBar.isVisible = result is Loading && result.data.isNullOrEmpty
-//                }
-//        }
 
     }
 
