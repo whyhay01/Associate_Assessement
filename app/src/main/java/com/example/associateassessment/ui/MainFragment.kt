@@ -1,14 +1,12 @@
 package com.example.associateassessment.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.associateassessment.R
+import androidx.fragment.app.Fragment
 import com.example.associateassessment.adapter.ViewPagerAdapter
 import com.example.associateassessment.databinding.FragmentMainBinding
-import com.example.associateassessment.domain.listOfTitle
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -33,9 +31,6 @@ class MainFragment : Fragment() {
         setUpViewPagerWithTabLayout()
         addTabLayoutMediator()
 
-//        TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
-//            tab.text = "OBJECT ${(position + 1)}"
-//        }.attach()
     }
 
     private fun setUpViewPagerWithTabLayout() {
@@ -48,5 +43,9 @@ class MainFragment : Fragment() {
         ) { tab: TabLayout.Tab, position: Int ->
             tab.text = listOfTitle[position]
         }.attach()
+    }
+
+    companion object{
+        val listOfTitle = listOf("Users","Favorites")
     }
 }

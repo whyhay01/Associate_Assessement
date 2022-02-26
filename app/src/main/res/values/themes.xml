@@ -20,4 +20,15 @@
         <item name="textAllCaps">false</item>
     </style>
 
+    <style name="Button.NoCap" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="textAllCaps">false</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+    </style>
+
+    <style name="Button.NoCap.Radius28">
+        <item name="cornerRadius">6dp</item>
+        <item name="backgroundTint">#FFEAEF</item>
+    </style>
+
 </resources>

@@ -26,7 +26,7 @@
             android:layout_height="100dp"
             android:src="@drawable/defualt_avatar"
             app:civ_border_width="2dp"
-            app:civ_border_color="#AFABA8"/>
+            app:civ_border_color="@color/ash"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -70,6 +70,15 @@
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_baseline_favorite_24"/>
+
+        <!--<CheckBox
+            android:id="@+id/btn_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/selector_favorite"
+            app:useMaterialThemeColors="false"
+            android:layout_gravity="center_vertical|right"
+            android:src="@drawable/ic_baseline_favorite_24"/> -->
 
     </LinearLayout>
 

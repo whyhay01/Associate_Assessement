@@ -7,5 +7,5 @@ import retrofit2.http.GET
 interface Service {
 
     @GET("search/users?q=lagos&page=1")
-    suspend fun getUsers():Response<UserModel>
+    suspend fun getUsers():UserModel
 }

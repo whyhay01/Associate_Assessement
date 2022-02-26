@@ -1,29 +1,30 @@
 package com.example.associateassessment.ui.screens
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import com.example.associateassessment.R
 import com.example.associateassessment.adapter.UsersAdapter
 import com.example.associateassessment.databinding.FragmentUsersBinding
+import com.example.associateassessment.ui.MainFragmentDirections
 import com.example.associateassessment.ui.viewmodel.UserViewModel
-
-
+import com.example.associateassessment.utils.Resource.*
 
 
 class UsersFragment : Fragment() {
 
-    lateinit var binding: FragmentUsersBinding
+    lateinit var mBinding: FragmentUsersBinding
     private val mViewModel by lazy {
         ViewModelProvider(this).get(UserViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewModel.getUsers()
     }
 
 
@@ -32,22 +33,40 @@ class UsersFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View{
-        binding = FragmentUsersBinding.inflate(inflater, container,false)
-        return binding.root
+        return inflater.inflate(R.layout.fragment_users, container, false).run {
+            mBinding = FragmentUsersBinding.bind(this)
+            this
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mViewModel.userListLiveData.observe(requireActivity()) {
-            binding.rvUsers.adapter = UsersAdapter(requireContext(), it,{ favoritePosition ->
+        mBinding.apply {
+            rvUsers.apply {
+                mViewModel.users.observe(requireActivity()) { result ->
+                    adapter = result.data?.let { UsersAdapter(requireContext(), it,
+                    { addToFavorite ->
+                        mViewModel.addFavorites(result.data[addToFavorite])
+                    },
+                        {itemClickedPosition ->
+                        findNavController().navigate(MainFragmentDirections
+                            .actionMainFragmentToDetailsFragment(it[itemClickedPosition]))
 
-                mViewModel.insertFavoriteUser(it[favoritePosition])
+                    })
 
-            },{removeFavoritePosition ->
-                mViewModel.removeFromFavorite(it[removeFavoritePosition])
-            })
+                    }
+
+                    progressBar.isVisible = result is Loading && result.data.isNullOrEmpty()
+
+                    errorMessage.isCursorVisible = result is Error && result.data.isNullOrEmpty()
+//                    errorMessage.text = requireContext().getString(R.string.error_message_networ)
+                    errorMessage.text = result.error?.localizedMessage
+                }
+
+            }
         }
+
 
     }
 

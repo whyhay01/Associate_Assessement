@@ -13,7 +13,9 @@ import coil.load
 import com.example.associateassessment.R
 import com.example.associateassessment.domain.Item
 
-class FavoriteAdapter(val context: Context, private val favoriteUsers: List<Item>):
+class FavoriteAdapter(val context: Context,
+                      private val favoriteUsers: List<Item> = emptyList(),
+                      private val block: (Int)->Unit  ):
     RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
@@ -40,5 +42,11 @@ class FavoriteAdapter(val context: Context, private val favoriteUsers: List<Item
         val profilePicture: ImageView = itemView.findViewById(R.id.profilePicture)
         val userName: TextView = itemView.findViewById(R.id.userName)
         val favorite: ImageButton = itemView.findViewById(R.id.btn_favorite)
+
+        init {
+            itemView.setOnClickListener {
+                block.invoke(adapterPosition)
+            }
+        }
     }
 }
