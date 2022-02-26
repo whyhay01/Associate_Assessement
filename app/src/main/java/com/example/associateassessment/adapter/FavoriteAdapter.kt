@@ -13,7 +13,7 @@ import coil.load
 import com.example.associateassessment.R
 import com.example.associateassessment.domain.Item
 
-class FavoriteAdapter(val context: Context, private val favoriteUsers: List<Item>):
+class FavoriteAdapter(val context: Context, private val favoriteUsers: List<Item> = emptyList()):
     RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {

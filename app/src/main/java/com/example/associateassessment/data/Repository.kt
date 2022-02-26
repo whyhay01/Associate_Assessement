@@ -1,6 +1,7 @@
 package com.example.associateassessment.data
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.room.withTransaction
 import com.example.associateassessment.api.NetworkManager
@@ -21,6 +22,7 @@ class Repository(context: Context) {
 
         userDao = userDb!!.userDao()
     }
+
     private val service = NetworkManager.getService()
 
     fun getAllUsers() = networkBoundResource(
@@ -31,12 +33,21 @@ class Repository(context: Context) {
         },
         saveFetchResult = { users ->
             userDb?.withTransaction {
-                userDao.deleteAllUsers()
+//                userDao.deleteAllUsers()
                 userDao.insertUsers(users.items)
             }
 
         }
     )
+
+    suspend fun addFavorites(item: Item){
+        userDao.addFavorite(item)
+    }
+
+    fun getFavoriteUsers():LiveData<List<Item>>{
+        return userDao.getFavoriteUsers()
+    }
+}
 
 //    suspend fun getUsers():Flow<List<Item>>{
 //        val response = service.getUsers()
@@ -61,4 +72,4 @@ class Repository(context: Context) {
 //    fun removeFromFavorite(item: Item){
 //        userDao.delete(item)
 //    }
-}
+//}

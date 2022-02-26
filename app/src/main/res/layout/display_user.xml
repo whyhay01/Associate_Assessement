@@ -71,6 +71,15 @@
             android:focusable="true"
             android:src="@drawable/ic_baseline_favorite_24"/>
 
+        <!--<CheckBox
+            android:id="@+id/btn_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/selector_favorite"
+            app:useMaterialThemeColors="false"
+            android:layout_gravity="center_vertical|right"
+            android:src="@drawable/ic_baseline_favorite_24"/> -->
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

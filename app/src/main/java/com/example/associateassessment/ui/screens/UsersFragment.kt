@@ -43,17 +43,41 @@ class UsersFragment : Fragment() {
         mBinding.apply {
             rvUsers.apply {
                 mViewModel.users.observe(requireActivity()) { result ->
-                    adapter = result.data?.let { UsersAdapter(requireContext(), it) }
+                    adapter = result.data?.let { UsersAdapter(requireContext(), it,
+                    { addToFavorite ->
+                        mViewModel.addFavorites(result.data[addToFavorite])
+                    },
+                        {removeFromFavorite ->
+                        mViewModel.addFavorites(it[removeFromFavorite])
+
+                    })
+
+                    }
 
                     progressBar.isVisible = result is Loading && result.data.isNullOrEmpty()
 
                     errorMessage.isCursorVisible = result is Error && result.data.isNullOrEmpty()
+//                    errorMessage.text = requireContext().getString(R.string.error_message_networ)
                     errorMessage.text = result.error?.localizedMessage
                 }
 
             }
         }
 
+//        mViewModel.users.observe(requireActivity()) {
+//            binding.rvUsers.adapter =
+//                it.data?.let { result ->
+//                    UsersAdapter(requireContext(), result)
+////                    ,{ favoritePosition ->
+////
+////                        mViewModel.insertFavoriteUser(it[favoritePosition])
+////
+////                    },{removeFavoritePosition ->
+////                        mViewModel.removeFromFavorite(it[removeFavoritePosition])
+////                    })
+//                    binding.progressBar.isVisible = result is Loading && result.data.isNullOrEmpty
+//                }
+//        }
 
     }
 

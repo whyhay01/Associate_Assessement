@@ -18,6 +18,16 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
 
     val users = repo.getAllUsers().asLiveData()
 
+    fun addFavorites(item: Item){
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.addFavorites(item)
+        }
+    }
+
+    fun getFavorites():LiveData<List<Item>>{
+       return repo.getFavoriteUsers()
+    }
+
 //    private val _usersList: MutableLiveData<List<Item>> = MutableLiveData()
 //    val userListLiveData: LiveData<List<Item>>
 //        get() = _usersList

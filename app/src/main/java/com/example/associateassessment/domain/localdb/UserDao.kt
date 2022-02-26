@@ -18,7 +18,10 @@ interface UserDao {
     suspend fun deleteAllUsers()
 
     @Query("SELECT * FROM user WHERE isFavorite = 1 ")
-    fun getFavoriteUsers(): Flow<List<Item>>
+    fun getFavoriteUsers(): LiveData<List<Item>>
+
+    @Update
+    suspend fun addFavorite(item: Item)
 
     @Delete
     fun delete(item: Item)
